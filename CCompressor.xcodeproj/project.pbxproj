@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		AD85B746306C720900EB02B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AD85B745306C720400EB02B7 /* README.md */; };
+		AD93C6DA3076A3CE00DA152A /* BUILD_VERSIONING.md in Resources */ = {isa = PBXBuildFile; fileRef = AD93C6D93076A3CE00DA152A /* BUILD_VERSIONING.md */; };
+		AD93C6DC3076A3D100DA152A /* AGENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = AD93C6DB3076A3D100DA152A /* AGENTS.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* CCompressor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCompressor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD85B745306C720400EB02B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AD93C6D93076A3CE00DA152A /* BUILD_VERSIONING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUILD_VERSIONING.md; sourceTree = "<group>"; };
+		AD93C6DB3076A3D100DA152A /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,6 +54,8 @@
 			children = (
 				AD85B745306C720400EB02B7 /* README.md */,
 				000000000000000000000010 /* CCompressor */,
+				AD93C6D93076A3CE00DA152A /* BUILD_VERSIONING.md */,
+				AD93C6DB3076A3D100DA152A /* AGENTS.md */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,6 +128,8 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				AD85B746306C720900EB02B7 /* README.md in Resources */,
+				AD93C6DA3076A3CE00DA152A /* BUILD_VERSIONING.md in Resources */,
+				AD93C6DC3076A3D100DA152A /* AGENTS.md in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -273,7 +281,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = CCompressor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27.1.1;
+				CURRENT_PROJECT_VERSION = 26.1.1.0.6;
 				DEVELOPMENT_TEAM = 34DAQAHL6V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
@@ -295,7 +303,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rngkGit.CCompressor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -317,7 +325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = CCompressor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27.1.1;
+				CURRENT_PROJECT_VERSION = 26.1.1.0.6;
 				DEVELOPMENT_TEAM = 34DAQAHL6V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
@@ -339,7 +347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rngkGit.CCompressor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

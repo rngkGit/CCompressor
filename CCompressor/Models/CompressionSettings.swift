@@ -38,6 +38,7 @@ public enum ImageOutputFormat: String, CaseIterable, Identifiable, Sendable {
     case png = "PNG (.png)"
     case heic = "HEIC (.heic)"
     case tiff = "TIFF (.tiff)"
+    case gif = "GIF (.gif)"
 
     public var id: String { rawValue }
 
@@ -48,6 +49,7 @@ public enum ImageOutputFormat: String, CaseIterable, Identifiable, Sendable {
         case .png: return "PNG"
         case .heic: return "HEIC"
         case .tiff: return "TIFF"
+        case .gif: return "GIF"
         }
     }
 
@@ -58,6 +60,7 @@ public enum ImageOutputFormat: String, CaseIterable, Identifiable, Sendable {
         case .png: return "png"
         case .heic: return "heic"
         case .tiff: return "tiff"
+        case .gif: return "gif"
         }
     }
 }
@@ -93,6 +96,7 @@ public enum VideoOutputFormat: String, CaseIterable, Identifiable, Sendable {
     case matchOriginal = "Original"
     case mp4 = "MP4 (.mp4)"
     case mov = "MOV (.mov)"
+    case gif = "GIF (.gif)"
 
     public var id: String { rawValue }
 
@@ -101,6 +105,7 @@ public enum VideoOutputFormat: String, CaseIterable, Identifiable, Sendable {
         case .matchOriginal: return "Original"
         case .mp4: return "MP4"
         case .mov: return "MOV"
+        case .gif: return "GIF"
         }
     }
 
@@ -109,6 +114,43 @@ public enum VideoOutputFormat: String, CaseIterable, Identifiable, Sendable {
         case .matchOriginal: return nil
         case .mp4: return "mp4"
         case .mov: return "mov"
+        case .gif: return "gif"
+        }
+    }
+}
+
+public enum GifOutputFormat: String, CaseIterable, Identifiable, Sendable {
+    case matchOriginal = "Original"
+    case mp4 = "MP4 (.mp4)"
+    case mov = "MOV (.mov)"
+    case png = "PNG (.png)"
+    case jpeg = "JPEG (.jpg)"
+    case heic = "HEIC (.heic)"
+    case tiff = "TIFF (.tiff)"
+
+    public var id: String { rawValue }
+
+    public var shortName: String {
+        switch self {
+        case .matchOriginal: return "Original"
+        case .mp4: return "MP4"
+        case .mov: return "MOV"
+        case .png: return "PNG"
+        case .jpeg: return "JPEG"
+        case .heic: return "HEIC"
+        case .tiff: return "TIFF"
+        }
+    }
+
+    public var extensionName: String? {
+        switch self {
+        case .matchOriginal: return nil
+        case .mp4: return "mp4"
+        case .mov: return "mov"
+        case .png: return "png"
+        case .jpeg: return "jpg"
+        case .heic: return "heic"
+        case .tiff: return "tiff"
         }
     }
 }
@@ -123,6 +165,7 @@ public struct CompressionSettings: Sendable {
     public var defaultImageFormat: ImageOutputFormat = .matchOriginal
     public var defaultAudioFormat: AudioOutputFormat = .matchOriginal
     public var defaultVideoFormat: VideoOutputFormat = .matchOriginal
+    public var defaultGifFormat: GifOutputFormat = .matchOriginal
 
     public var isLossless: Bool {
         selectedPreset == .lossless

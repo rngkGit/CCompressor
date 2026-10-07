@@ -5,6 +5,7 @@ public struct FileCompressionDispatcher: Sendable {
     private let audioCompressor = AudioCompressor()
     private let videoCompressor = VideoCompressor()
     private let pdfCompressor = PDFCompressor()
+    private let gifConverter = GifConverter()
 
     public init() {}
 
@@ -82,7 +83,9 @@ public struct FileCompressionDispatcher: Sendable {
             }
         }
 
-        let isFormatConversion = outputURL.pathExtension.lowercased() != item.sourceURL.pathExtension.lowercased()
+        let inputExt = item.sourceURL.pathExtension.lowercased()
+        let outputExt = outputURL.pathExtension.lowercased()
+        let isFormatConversion = outputExt != inputExt
 
         // Lossless quality preset: if no file conversion is applicable, skip compression entirely and copy original
         if settings.isLossless && !isFormatConversion {
@@ -94,37 +97,54 @@ public struct FileCompressionDispatcher: Sendable {
             return outputURL
         }
 
-        switch item.category {
-        case .image:
-            try await imageCompressor.compress(
+        // Two-way Video <-> GIF conversion routing
+        if item.category == .video && outputExt == "gif" {
+            try await gifConverter.convertVideoToGIF(
                 inputURL: item.sourceURL,
                 outputURL: outputURL,
                 quality: settings.quality,
                 progressHandler: progressHandler
             )
-        case .audio:
-            try await audioCompressor.compress(
+        } else if inputExt == "gif" && (outputExt == "mp4" || outputExt == "mov") {
+            try await gifConverter.convertGIFToVideo(
                 inputURL: item.sourceURL,
                 outputURL: outputURL,
                 quality: settings.quality,
                 progressHandler: progressHandler
             )
-        case .video:
-            try await videoCompressor.compress(
-                inputURL: item.sourceURL,
-                outputURL: outputURL,
-                quality: settings.quality,
-                progressHandler: progressHandler
-            )
-        case .pdf:
-            try await pdfCompressor.compress(
-                inputURL: item.sourceURL,
-                outputURL: outputURL,
-                quality: settings.quality,
-                progressHandler: progressHandler
-            )
-        case .unsupported:
-            throw DispatcherError.unsupportedFormat
+        } else {
+            switch item.category {
+            case .image:
+                try await imageCompressor.compress(
+                    inputURL: item.sourceURL,
+                    outputURL: outputURL,
+                    quality: settings.quality,
+                    progressHandler: progressHandler
+                )
+            case .audio:
+                try await audioCompressor.compress(
+                    inputURL: item.sourceURL,
+                    outputURL: outputURL,
+                    quality: settings.quality,
+                    progressHandler: progressHandler
+                )
+            case .video:
+                try await videoCompressor.compress(
+                    inputURL: item.sourceURL,
+                    outputURL: outputURL,
+                    quality: settings.quality,
+                    progressHandler: progressHandler
+                )
+            case .pdf:
+                try await pdfCompressor.compress(
+                    inputURL: item.sourceURL,
+                    outputURL: outputURL,
+                    quality: settings.quality,
+                    progressHandler: progressHandler
+                )
+            case .unsupported:
+                throw DispatcherError.unsupportedFormat
+            }
         }
 
         // Universal invariant: ensure output file never exceeds the original file size (only when compressing in same format)

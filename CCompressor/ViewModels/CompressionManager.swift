@@ -156,6 +156,10 @@ public final class CompressionManager {
         items.contains { $0.category == .image }
     }
 
+    public var hasNonGifImageItems: Bool {
+        items.contains { $0.category == .image && $0.sourceExtension != "gif" }
+    }
+
     public var hasAudioItems: Bool {
         items.contains { $0.category == .audio }
     }
@@ -164,8 +168,12 @@ public final class CompressionManager {
         items.contains { $0.category == .video }
     }
 
+    public var hasGifItems: Bool {
+        items.contains { $0.sourceExtension == "gif" }
+    }
+
     public var hasConvertibleItems: Bool {
-        hasImageItems || hasAudioItems || hasVideoItems
+        hasNonGifImageItems || hasAudioItems || hasVideoItems || hasGifItems
     }
 
     public var formattedTotalOriginal: String {
@@ -218,7 +226,7 @@ public final class CompressionManager {
             panel.directoryURL = folderURL
             panel.prompt = "Grant Access"
             panel.title = "Permission Required"
-            panel.message = "CCompressor needs permission to write compressed files to \"\(folderURL.lastPathComponent)\". Please select this folder to grant permission."
+            panel.message = "CCompressor needs permission to write compressed files to “\(folderURL.lastPathComponent)”. Please select this folder to grant permission."
 
             if panel.runModal() == .OK, let selectedURL = panel.url {
                 _ = selectedURL.startAccessingSecurityScopedResource()
@@ -266,15 +274,19 @@ public final class CompressionManager {
                 var item = CompressionItem(url: url)
                 if item.category != .unsupported {
                     // Apply default target format from settings if set
-                    switch item.category {
-                    case .image:
-                        item.targetExtension = settings.defaultImageFormat.extensionName
-                    case .audio:
-                        item.targetExtension = settings.defaultAudioFormat.extensionName
-                    case .video:
-                        item.targetExtension = settings.defaultVideoFormat.extensionName
-                    case .pdf, .unsupported:
-                        break
+                    if item.sourceExtension == "gif" {
+                        item.targetExtension = settings.defaultGifFormat.extensionName
+                    } else {
+                        switch item.category {
+                        case .image:
+                            item.targetExtension = settings.defaultImageFormat.extensionName
+                        case .audio:
+                            item.targetExtension = settings.defaultAudioFormat.extensionName
+                        case .video:
+                            item.targetExtension = settings.defaultVideoFormat.extensionName
+                        case .pdf, .unsupported:
+                            break
+                        }
                     }
                     items.append(item)
                 } else {
@@ -308,6 +320,20 @@ public final class CompressionManager {
     public func setDefaultFormat(for category: FileCategory, extensionName: String?) {
         for i in 0..<items.count {
             if items[i].category == category {
+                if category == .image && items[i].sourceExtension == "gif" {
+                    continue
+                }
+                items[i].targetExtension = extensionName
+                if case .completed = items[i].status {
+                    items[i].status = .pending
+                }
+            }
+        }
+    }
+
+    public func setDefaultFormatForGifs(extensionName: String?) {
+        for i in 0..<items.count {
+            if items[i].sourceExtension == "gif" {
                 items[i].targetExtension = extensionName
                 if case .completed = items[i].status {
                     items[i].status = .pending
