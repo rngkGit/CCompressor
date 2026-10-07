@@ -29,11 +29,11 @@ public enum FileCategory: String, CaseIterable, Identifiable, Sendable {
     public var supportedOutputExtensions: [String] {
         switch self {
         case .image:
-            return ["jpg", "png", "heic", "tiff"]
+            return ["jpg", "png", "heic", "tiff", "gif"]
         case .audio:
             return ["wav", "m4a", "aiff"]
         case .video:
-            return ["mp4", "mov"]
+            return ["mp4", "mov", "gif"]
         case .pdf:
             return ["pdf"]
         case .unsupported:
@@ -51,6 +51,8 @@ public enum FileCategory: String, CaseIterable, Identifiable, Sendable {
             return "HEIC (.heic)"
         case "tiff", "tif":
             return "TIFF (.tiff)"
+        case "gif":
+            return "GIF (.gif)"
         case "wav":
             return "WAV (.wav)"
         case "m4a":
@@ -160,7 +162,10 @@ public struct CompressionItem: Identifiable, Sendable {
     }
 
     public var availableTargetExtensions: [String] {
-        category.supportedOutputExtensions
+        if sourceExtension == "gif" {
+            return ["mp4", "mov", "jpg", "png", "heic", "tiff"]
+        }
+        return category.supportedOutputExtensions
     }
 
     public var compressedSize: Int64? {

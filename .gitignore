@@ -1,0 +1,16 @@
+# Build versioning documentation
+BUILD_VERSIONING.md
+
+# Agent info
+AGENTS.md
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+*.xcuserdatad
+*.xcscmblueprint
+
+# macOS
+.DS_Store

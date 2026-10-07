@@ -19,6 +19,18 @@ CCompressor is a native macOS utility designed for high-performance batch file c
 
 ---
 
+## AI Disclaimer
+
+Some of the code, and documentation in this repository were created with the assistance of AI tools.
+
+**All assets were NOT created with AI and were handmade**.
+
+To ensure quality and reliability, all agentic coding output is thoroughly reviewed, tested, and refined by me.
+
+I remain solely responsible for the content, security, and reliability of this project. If you encounter any bugs or inconsistencies, please open an Issue so we can address them.
+
+---
+
 ## Supported Formats and Capabilities
 
 | Media Category | Supported Input Formats | Supported Output Formats | Underlying Apple Framework |
@@ -100,6 +112,9 @@ The project is organized into clean domain layers separating models, services, v
 
 ```
 CCompressor/
+|-- AGENTS.md                               # AI agent build protocol and repository instructions
+|-- BUILD_VERSIONING.md                     # Build versioning scheme specifications and workflow
+|-- README.md
 |-- CCompressor/
 |   |-- CCompressor.swift                   # Application entry point and window scene definition
 |   |-- ContentView.swift                   # Root view hosting drop zone, file list, and toolbar
@@ -122,7 +137,6 @@ CCompressor/
 |       |-- FileThumbnailView.swift         # Asynchronous image thumbnail component with category icons
 |       |-- SettingsBarView.swift           # Inspector sidebar for quality, destination, and conversions
 |       `-- StorageComparisonBarView.swift  # Graphical before-and-after storage distribution visualizer
-`-- README.md
 ```
 
 ### Key Components
@@ -138,4 +152,4 @@ CCompressor/
 
 ## License
 
-Standard application project terms apply.
+Distributed under the MIT License. See `LICENSE.md` for more information.

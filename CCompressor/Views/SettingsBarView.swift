@@ -168,7 +168,7 @@ public struct SettingsBarView: View {
 
             if manager.hasConvertibleItems {
                 VStack(spacing: 8) {
-                    if manager.hasImageItems {
+                    if manager.hasNonGifImageItems {
                         formatPickerRow(
                             label: "Images",
                             icon: "photo",
@@ -180,6 +180,21 @@ public struct SettingsBarView: View {
                                 }
                             ),
                             options: ImageOutputFormat.allCases
+                        )
+                    }
+
+                    if manager.hasGifItems {
+                        formatPickerRow(
+                            label: "GIFs",
+                            icon: "play.square.stack",
+                            selection: Binding(
+                                get: { manager.settings.defaultGifFormat },
+                                set: { newFormat in
+                                    manager.settings.defaultGifFormat = newFormat
+                                    manager.setDefaultFormatForGifs(extensionName: newFormat.extensionName)
+                                }
+                            ),
+                            options: GifOutputFormat.allCases
                         )
                     }
 
